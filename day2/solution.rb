@@ -32,7 +32,7 @@ assert_equal([30,1,1,4,2,5,6,0,99], intcode_program([1,1,1,4,99,5,6,0,99]))
 assert_equal([3500,9,10,70, 2,3,11,0, 99, 30,40,50], intcode_program([1,9,10,3,2,3,11,0,99,30,40,50]))
 
 
-intcode_program_output = intcode_program(INPUT)
+intcode_program_output = intcode_program(INPUT.dup)
 
 puts "Part 1: output program: #{intcode_program_output}"
 puts "Part 1: first position: #{intcode_program_output[0]}"
@@ -41,4 +41,15 @@ puts "Part 1: first position: #{intcode_program_output[0]}"
 
 # --- Part 2 ---
 
+(0..99).each do |j|
+  (0..99).each do |k|
+    program = INPUT.dup
+    program[1] = j
+    program[2] = k
+    outputter = intcode_program(program)
+    puts "noun: #{j}, verb: #{k}" if outputter[0] == 19690720
+  end
+end
 
+# => noun: 52, verb: 96
+# => (100 * noun) + verb = 5296
